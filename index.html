@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Example</title>
+    <style>
+      html,
+      body{
+        height:100%;
+       }
+      #grid {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+</head>
+
+<body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js"></script>
+<script>
+  var colors = [["#b86000","#c76b01","#d5750e","#de801e","#e6892c","#ee8f3b","#f29748","#f59a53","#f89f5e","#f9a567","#faa86e","#fcad72","#fcac71","#fba971","#fda671","#fda371","#fda074","#fc9c72","#fc9a74","#fc9574","#fd9175","#fb8d76","#fb8775","#f98376","#f87d76","#f77877","#f57373","#f36e69","#f1675c","#ee6150","#eb5b41","#e85436"],["#c66b01","#d37600","#de810a","#e78918","#ed902a","#f19736","#f49c45","#f8a152","#faa65d","#fba866","#fbad6d","#fdab71","#fea970","#ffa571","#fda26f","#ff9e71","#fe9c71","#fe9870","#fc9471","#fc9171","#fd8c71","#fb8672","#fb8172","#f87c72","#f77872","#f67071","#f66c73","#f56775","#f15f69","#ef595c","#ed534f","#ea4c43"],["#d07500","#db8100","#e58a06","#eb9215","#f19725","#f59e34","#f7a341","#faa64e","#faa958","#fbad63","#feab69","#fda76c","#fda46c","#fea16e","#ff9f6e","#fd9b6e","#fe976e","#fe936e","#fd8f6e","#fd896f","#fc856d","#fb806f","#fb7b6e","#fa756f","#fb6f6e","#f86a70","#f6646f","#f55e71","#f45870","#f15169","#f04a5e","#eb4551"],["#d98000","#e38901","#ec9102","#f29713","#f49f22","#f7a330","#f9a63e","#faa94c","#fbab54","#fdaa5a","#fda75f","#fca264","#fea06a","#fd9d6b","#ff9a6c","#ff966c","#fe926c","#fe8d6b","#ff896d","#fd836c","#fd7e6b","#fc7a6c","#fa746b","#fa6f6c","#f8686b","#f8626b","#f75c6c","#f4576c","#f44f6e","#f3496d","#f1426b","#f03c61"],["#e48a00","#ea9101","#f19903","#f39d0e","#f7a31d","#faa72f","#fbab3b","#fbac43","#fda94a","#fda750","#fea255","#fd9e5c","#fe9c60","#fe9a66","#ff9669","#ff926b","#ff8d69","#fd8768","#ff8369","#ff7e69","#fd7869","#fc7268","#fc6d69","#fc6769","#fb6169","#f95b69","#f75568","#f64e68","#f5476a","#f44169","#f13a6a","#f1326b"],["#e99100","#ef9801","#f49d00","#f6a309","#f8a718","#fcab28","#fdaa30","#fda838","#fea73f","#fea147","#fe9f4d","#fe9c50","#fe9857","#ff945c","#ff9062","#ff8b64","#ff8667","#ff8168","#ff7c67","#fe7666","#fd7067","#fc6c66","#fc6667","#fb6065","#fa5965","#fa5364","#f94d65","#f84665","#f43e64","#f33865","#f33166","#f12b66"],["#ed9701","#f29e00","#f5a201","#f8a704","#faaa15","#fbaa1b","#fda723","#fea52d","#fe9f32","#ff9f3a","#ff9c41","#fe9746","#ff924e","#ff8e52","#fe8856","#ff855c","#ff8161","#ff7b65","#ff7563","#fe7064","#ff6a62","#fe6463","#fd5e62","#fd5763","#fb5263","#fb4b62","#f94562","#f83c61","#f73863","#f52f61","#f42961","#f22263"],["#f19e00","#f5a301","#f8a700","#faa900","#fba605","#fda50d","#fda416","#fea11e","#fc9d25","#fe992d","#fe9633","#ff923b","#fe8e42","#ff8a48","#ff844e","#ff7f53","#ff7956","#ff755b","#fd6e5e","#ff6962","#fe6361","#fd5d5f","#fc575e","#fc505e","#fc495f","#fb435f","#f93b5d","#f9345f","#f82e5e","#f6275f","#f5215e","#f2195e"],["#f3a401","#f8aa02","#f9a800","#faa703","#fca500","#fea201","#fea008","#fd9c11","#ff9919","#fd941f","#ff9126","#ff8d2d","#ff8735","#ff833c","#ff7e43","#ff7848","#fe724e","#ff6e53","#ff6857","#ff625b","#ff585e","#fe555c","#fe4e5c","#fd475d","#fd415a","#fc395b","#fb3358","#fa2c5a","#f8255a","#f51f5a","#f7185b","#f31159"],["#f4a701","#f8a700","#faa703","#fca500","#fea201","#fd9f01","#fe9b00","#fc9701","#fe9308","#ff8f11","#ff8c19","#fd8620","#ff8226","#ff7c2f","#fe7635","#fe713b","#ff6c40","#ff6748","#ff604b","#fd5950","#ff5255","#fe4c58","#ff455a","#fe3e59","#ff3a58","#fd3057","#fc2a57","#fb2558","#fb1b57","#f81656","#f60f55","#f50755"],["#f7a501","#f9a300","#fba200","#fca001","#fd9f01","#fe9900","#fe9600","#fe9300","#fe8d00","#ff8900","#ff8508","#fe8012","#ff7b17","#ff7420","#fd6f27","#ff6b2f","#ff6434","#fe5c39","#ff5740","#ff5146","#ff4b4c","#fe444f","#ff3d53","#ff3656","#fd2f55","#fd2854","#fc2254","#fc1a52","#f91353","#fa0d53","#f80853","#f70051"],["#f9a301","#f9a101","#fd9f01","#fc9e00","#fd9a00","#fd9500","#fe9100","#fd8c00","#ff8901","#ff8500","#ff7f00","#ff7a01","#fe7409","#fe6e10","#ff6918","#fe6320","#fe5c27","#ff562d","#ff5034","#ff483b","#ff4341","#ff3b45","#ff3649","#ff2e4e","#ff2752","#ff1f51","#fe1952","#fc124f","#fc0b50","#fb054e","#f90250","#f8004f"],["#faa401","#f99f01","#fc9b00","#fc9801","#fe9600","#fe8f01","#ff8b00","#ff8800","#fe8100","#ff7e00","#ff7900","#ff7200","#ff6e01","#ff6701","#ff6108","#fe5c11","#ff5518","#ff4f1f","#fe4725","#fe3f2c","#fe3931","#ff3438","#ff2c3e","#ff2645","#ff1e48","#ff184c","#ff114d","#ff0a4d","#fe044c","#fc004b","#fa034d","#f4024c"],["#faa401","#fc9f02","#fc9900","#fb9300","#fe8f01","#fe8a00","#fe8500","#ff8100","#fe7c00","#ff7701","#ff7101","#ff6d00","#ff6600","#fe6000","#fe5800","#ff5301","#ff4c09","#ff460e","#ff4016","#ff391e","#fe3124","#ff2b2d","#fe2432","#ff1c38","#fd153d","#ff0e41","#fe0847","#fe024a","#fc0049","#f70348","#ef0449","#e6064a"],["#fba301","#fc9e00","#fc9900","#fe9101","#fd8900","#fe8400","#ff7f01","#ff7b00","#fe7600","#ff7000","#fe6b01","#fe6400","#fe5e00","#ff5700","#fd5200","#ff4b00","#ff4400","#ff3d00","#ff3706","#ff2f0e","#fe2913","#ff211e","#fd1a25","#fe152b","#ff0e31","#fc0737","#fa023c","#f70442","#ef0447","#e50647","#d80a48","#ca0d47"],["#fda400","#fd9f00","#fc9802","#ff9000","#fe8800","#fd8000","#ff7a01","#ff7200","#ff6f00","#fe6a00","#ff6300","#ff5d00","#ff5601","#ff5000","#ff4900","#ff4200","#ff3b00","#fd3501","#fd2c01","#ff2702","#fe2106","#ff1a0d","#fd1316","#fb0d1d","#f80725","#f3042d","#ea0633","#df073a","#d20c3f","#c50e44","#b71345","#aa1646"],["#fca300","#fd9f01","#fd9700","#fe8f01","#fe8800","#ff7f00","#ff7701","#ff6e01","#ff6702","#ff6100","#ff5c01","#ff5500","#ff4e00","#ff4701","#fe4101","#ff3b01","#ff3300","#ff2c01","#ff2502","#fe1e01","#fb1903","#f91304","#f30e09","#eb0c13","#e2091c","#d50b25","#ca0e2f","#bb1135","#ae143a","#a2183f","#951a41","#8a1c46"],["#faa200","#fe9d00","#fe9600","#fe8f01","#ff8700","#ff7f00","#fe7600","#ff6c00","#ff6100","#fe5800","#ff5300","#ff4c01","#fd4600","#ff3f00","#ff3800","#ff3100","#fc2b02","#fa2402","#f81f03","#f31b04","#eb1706","#e21409","#d6130b","#c9120f","#be1119","#b01421","#a31627","#98182f","#8c1c35","#7f1d39","#75213c","#6c2340"]]
+
+
+  var scene,
+    camera,
+    renderer,
+    pivot,
+    planesContainer,
+    plane,
+    raycaster,
+    projector,
+    DELAY = 0.7,
+    DISTANCE = 100,
+    layout = [],
+    planes = [],
+    offset = 0,
+    mouse = new THREE.Vector2(), INTERSECTED;
+
+  function init() {
+    mouse.x = mouse.y = 5000;
+    scene = new THREE.Scene();
+    raycaster = new THREE.Raycaster();
+    camera = new THREE.PerspectiveCamera(45, $('#grid').width() / $('#grid').height(), 1, 1000);
+    camera.position.z = 680 ;
+
+
+    scene.add(camera);
+
+
+    planesContainer = new THREE.Object3D();
+    scene.add(planesContainer);
+
+
+    var space = $('#grid').width() / 32
+    var wd = Math.ceil($('#grid').width()/ space);
+    var ht = Math.ceil($('#grid').height() / space);
+    var geometry = new THREE.BoxGeometry( space, space, 300 );
+
+    var line = 0;
+    var col = 0;
+
+    for(var h = 0; h < colors.length; h++) {
+      layout[line] = [];
+      col = wd-1;
+      for(var w = 0; w < wd; w++) {
+
+        plane = new THREE.Mesh( geometry,new THREE.MeshBasicMaterial( { color: colors[h][w], wireframe: false, vertexColors: THREE.VertexColors } ));
+
+        for ( var i = 0; i < plane.geometry.faces.length; i ++ ) {
+          plane.geometry.faces[ i ].color.setHex(plane.geometry.faces[ i ].color.getHex());
+        }
+
+        var H = .9;
+        var S = .5;
+        var L = 0.80;
+
+        plane.geometry.faces[ 0 ].color.setHSL(H,S,L);
+        plane.geometry.faces[ 1 ].color.setHSL(H,S,L);
+        plane.geometry.faces[ 2 ].color.setHSL(H,S,L);
+        plane.geometry.faces[ 3 ].color.setHSL(H,S,L);
+        plane.geometry.faces[ 4 ].color.setHSL(H,S,L);
+        plane.geometry.faces[ 5 ].color.setHSL(H,S,L);
+        plane.geometry.faces[ 6 ].color.setHSL(H,S,L);
+        plane.geometry.faces[ 7 ].color.setHSL(H,S,L);
+        
+        plane.userData.line = line;
+        plane.userData.col = w;
+        
+
+        plane.geometry.colorsNeedUpdate = true;
+
+        planes.push(plane);
+
+
+         //THREE.MeshLambertMaterial( { color: 0xdddddd, shading: THREE.FlatShading }
+         plane.position.x = -(w * (space + offset));
+         plane.position.y = -(h * (space + offset));
+         
+         layout[h][w] = plane;
+         planesContainer.add(plane);
+
+        col--
+      }
+      line++;
+    }
+
+    planesContainer.position.x = ((wd * space) * 0.5) - space/2;
+    planesContainer.position.y = ((colors.length * space) * 0.5) - space/2;
+
+    renderer = Detector.webgl? new THREE.WebGLRenderer(): new THREE.CanvasRenderer();
+    renderer.setPixelRatio( window.devicePixelRatio );
+    $('#grid').append(renderer.domElement);
+    renderer.setSize($('#grid').width(), $('#grid').height());
+
+    var vFOV = camera.fov * (Math.PI / 180); // convert VERTICAL fov to radians
+    var targetZ = $('#grid').height()/ (2 * Math.tan(vFOV / 2) );
+
+
+    camera.position.z = planesContainer.position.z + targetZ +150;
+    camera.updateProjectionMatrix (); 
+
+    render();
+    onResize();
+    $(window).resize(onResize);
+    document.addEventListener( 'mousemove', onDocumentMouseMove );
+  }
+
+  function render() {
+    requestAnimationFrame(render);
+    camera.updateMatrixWorld();
+    renderer.render(scene, camera);
+    raycaster.setFromCamera( mouse, camera );
+
+    var intersects = raycaster.intersectObjects( planes );
+
+    if ( intersects.length > 0 ) {
+
+      INTERSECTED = intersects[ 0 ].object;
+      if ( INTERSECTED ) {
+
+        for (var i = 0; i < layout.length; i++) {
+          for (var y = 0; y < layout[i].length; y++) {
+            layout[i][y].userData.intersected = 0;
+          };
+        };
+
+        animate(INTERSECTED);
+      }
+    }
+    for (var i = 0; i < layout.length; i++) {
+      for (var y = 0; y < layout[i].length; y++) {
+        // if(layout[i][y].userData.intersected==1) return;
+        if(layout[i][y].position.z >0) {
+          layout[i][y].position.z -= 2.4;
+
+        }else {
+          layout[i][y].position.z = 0;
+          layout[i][y].userData.intersected = 0;
+        }
+        
+      };
+    }; 
+  };
+
+  function animate(obj) {
+    var line = obj.userData.line;
+    var col = obj.userData.col;
+
+    obj.userData.intersected = 1;
+
+    TweenMax.to(obj.position, 0.5, {z:DISTANCE})
+    var lsc = 1
+    for (var i = line; i <= line+3; i++) {
+      animateRow(i, col, lsc)
+      lsc -= 0.25;
+    };
+
+    var lsc = 1
+    for (var i = line; i >= line-3; i--) {
+      animateRow(i, col, lsc)
+      lsc -= 0.25;
+    };
+  }
+
+  function animateRow(i, col, lsc){
+    if(typeof layout[i]!= 'undefined') {
+      var s = lsc
+      for (var cr = col; cr <= col+3; cr++) {
+        if(typeof layout[i][cr]!= 'undefined') {
+          if(s<=0) s = 0;
+          TweenMax.to(layout[i][cr].position, 0.5, {z:DISTANCE * s})
+          layout[i][cr].userData.intersected = 1
+          s -= 0.25;
+        };
+      };
+      var s = lsc
+      for (var cr = col; cr >= col-3; cr--) {
+        if(typeof layout[i][cr]!= 'undefined') {
+          if(s<=0) s = 0;
+          TweenMax.to(layout[i][cr].position, 0.5, {z:DISTANCE * s})
+          layout[i][cr].userData.intersected = 1
+          s -= 0.25;
+        };
+      };
+    }
+  }
+
+  function onResize(e) {
+    camera.aspect = $('#grid').width() / $('#grid').height();
+    renderer.setSize($('#grid').width(), $('#grid').height());
+    camera.updateProjectionMatrix ();
+  }
+
+
+  function onDocumentMouseMove( event ) {
+    mouse.x = ( event.clientX / $('#grid').width()) * 2 - 1;
+    mouse.y = - ( event.clientY / $('#grid').height() ) * 2 + 1;
+  }
+
+
+  $(document).ready(function() {
+    init();
+  });
+
+
+
+var Detector = {
+
+  canvas: !! window.CanvasRenderingContext2D,
+  webgl: ( function () { try { var canvas = document.createElement( 'canvas' ); return !! ( window.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) ) ); } catch ( e ) { return false; } } )(),
+  workers: !! window.Worker,
+  fileapi: window.File && window.FileReader && window.FileList && window.Blob,
+
+  getWebGLErrorMessage: function () {
+
+    var element = document.createElement( 'div' );
+    element.id = 'webgl-error-message';
+    element.style.fontFamily = 'monospace';
+    element.style.fontSize = '13px';
+    element.style.fontWeight = 'normal';
+    element.style.textAlign = 'center';
+    element.style.background = '#fff';
+    element.style.color = '#000';
+    element.style.padding = '1.5em';
+    element.style.width = '400px';
+    element.style.margin = '5em auto 0';
+
+    if ( ! this.webgl ) {
+
+      element.innerHTML = window.WebGLRenderingContext ? [
+        'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />',
+        'Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.'
+      ].join( '\n' ) : [
+        'Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br/>',
+        'Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.'
+      ].join( '\n' );
+
+    }
+
+    return element;
+
+  },
+
+  addGetWebGLMessage: function ( parameters ) {
+
+    var parent, id, element;
+
+    parameters = parameters || {};
+
+    parent = parameters.parent !== undefined ? parameters.parent : document.body;
+    id = parameters.id !== undefined ? parameters.id : 'oldie';
+
+    element = Detector.getWebGLErrorMessage();
+    element.id = id;
+
+    parent.appendChild( element );
+
+  }
+
+};
+// browserify support
+if ( typeof module === 'object' ) {
+
+  module.exports = Detector;
+
+}
+
+</script>
+  <div id='grid'></div>
+</body>
